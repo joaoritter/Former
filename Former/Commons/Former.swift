@@ -866,7 +866,7 @@ public final class Former: NSObject {
 extension Former: UITableViewDelegate, UITableViewDataSource {
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        endEditing()
+        //endEditing()
         onBeginDragging?(scrollView)
     }
     
@@ -915,7 +915,7 @@ extension Former: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        endEditing()
+        //endEditing()
         deselect(animated: false)
         selectedIndexPath = indexPath
         return indexPath
