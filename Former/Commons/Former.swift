@@ -275,7 +275,7 @@ public final class Former: NSObject {
     
     /// To select row from indexPath.
     @discardableResult
-    public func select(indexPath: IndexPath, animated: Bool, scrollPosition: UITableViewScrollPosition = .none) -> Self {
+    public func select(indexPath: IndexPath, animated: Bool, scrollPosition: UITableView.ScrollPosition = .none) -> Self {
         if let tableView = tableView {
             tableView.selectRow(at: indexPath, animated: animated, scrollPosition: scrollPosition)
             _ = self.tableView(tableView, willSelectRowAt: indexPath)
@@ -286,7 +286,7 @@ public final class Former: NSObject {
     
     /// To select row from instance of RowFormer.
     @discardableResult
-    public func select(rowFormer: RowFormer, animated: Bool, scrollPosition: UITableViewScrollPosition = .none) -> Self {
+    public func select(rowFormer: RowFormer, animated: Bool, scrollPosition: UITableView.ScrollPosition = .none) -> Self {
         for (section, sectionFormer) in sectionFormers.enumerated() {
             if let row = sectionFormer.rowFormers.index(where: { $0 === rowFormer }) {
                 return select(indexPath: IndexPath(row: row, section: section), animated: animated, scrollPosition: scrollPosition)
@@ -314,28 +314,28 @@ public final class Former: NSObject {
     
     /// Reload sections from section indexSet.
     @discardableResult
-    public func reload(sections: IndexSet, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func reload(sections: IndexSet, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         tableView?.reloadSections(sections, with: rowAnimation)
         return self
     }
 
     /// Reload sections from instance of SectionFormer.
     @discardableResult
-    public func reload(sectionFormer: SectionFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func reload(sectionFormer: SectionFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         guard let section = sectionFormers.index(where: { $0 === sectionFormer }) else { return self }
       return reload(sections: IndexSet(integer: section), rowAnimation: rowAnimation)
     }
     
     /// Reload rows from indesPaths.
     @discardableResult
-    public func reload(indexPaths: [IndexPath], rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func reload(indexPaths: [IndexPath], rowAnimation: UITableView.RowAnimation = .none) -> Self {
         tableView?.reloadRows(at: indexPaths, with: rowAnimation)
         return self
     }
     
     /// Reload rows from instance of RowFormer.
     @discardableResult
-    public func reload(rowFormer: RowFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func reload(rowFormer: RowFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         for (section, sectionFormer) in sectionFormers.enumerated() {
             if let row = sectionFormer.rowFormers.index(where: { $0 === rowFormer}) {
                 return reload(indexPaths: [IndexPath(row: row, section: section)], rowAnimation: rowAnimation)
@@ -420,13 +420,13 @@ public final class Former: NSObject {
     
     /// Insert SectionFormer to index of section with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormer: SectionFormer..., toSection: Int, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormer: SectionFormer..., toSection: Int, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(sectionFormers: sectionFormer, toSection: toSection, rowAnimation: rowAnimation)
     }
     
     /// Insert SectionFormers to index of section with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormers: [SectionFormer], toSection: Int, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormers: [SectionFormer], toSection: Int, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         guard !sectionFormers.isEmpty else { return self }
         removeCurrentInlineRowUpdate()
         tableView?.beginUpdates()
@@ -438,13 +438,13 @@ public final class Former: NSObject {
     
     /// Insert SectionFormer to above other SectionFormer with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormer: SectionFormer..., above: SectionFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormer: SectionFormer..., above: SectionFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(sectionFormers: sectionFormer, above: above, rowAnimation: rowAnimation)
     }
     
     /// Insert SectionFormers to above other SectionFormer with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormers: [SectionFormer], above: SectionFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormers: [SectionFormer], above: SectionFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         for (section, sectionFormer) in self.sectionFormers.enumerated() {
             if sectionFormer === above {
@@ -461,13 +461,13 @@ public final class Former: NSObject {
     
     /// Insert SectionFormer to below other SectionFormer with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormer: SectionFormer..., below: SectionFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormer: SectionFormer..., below: SectionFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(sectionFormers: sectionFormer, below: below, rowAnimation: rowAnimation)
     }
     
     /// Insert SectionFormers to below other SectionFormer with animated updates.
     @discardableResult
-    public func insertUpdate(sectionFormers: [SectionFormer], below: SectionFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(sectionFormers: [SectionFormer], below: SectionFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         for (section, sectionFormer) in self.sectionFormers.enumerated() {
             if sectionFormer === below {
@@ -539,13 +539,13 @@ public final class Former: NSObject {
     
     /// Insert RowFormer with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormer: RowFormer..., toIndexPath: IndexPath, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormer: RowFormer..., toIndexPath: IndexPath, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(rowFormers: rowFormer, toIndexPath: toIndexPath, rowAnimation: rowAnimation)
     }
     
     /// Insert RowFormers with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormers: [RowFormer], toIndexPath: IndexPath, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormers: [RowFormer], toIndexPath: IndexPath, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         guard !rowFormers.isEmpty else { return self }
         tableView?.beginUpdates()
@@ -560,13 +560,13 @@ public final class Former: NSObject {
     
     /// Insert RowFormer to above other RowFormer with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormer: RowFormer..., above: RowFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormer: RowFormer..., above: RowFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(rowFormers: rowFormer, above: above, rowAnimation: rowAnimation)
     }
     
     /// Insert RowFormers to above other RowFormer with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormers: [RowFormer], above: RowFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormers: [RowFormer], above: RowFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         for (section, sectionFormer) in self.sectionFormers.enumerated() {
             for (row, rowFormer) in sectionFormer.rowFormers.enumerated() {
@@ -587,13 +587,13 @@ public final class Former: NSObject {
     
     /// Insert RowFormer to below other RowFormer with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormer: RowFormer..., below: RowFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormer: RowFormer..., below: RowFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return insertUpdate(rowFormers: rowFormer, below: below, rowAnimation: rowAnimation)
     }
     
     /// Insert RowFormers to below other RowFormer with animated updates.
     @discardableResult
-    public func insertUpdate(rowFormers: [RowFormer], below: RowFormer, rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func insertUpdate(rowFormers: [RowFormer], below: RowFormer, rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         for (section, sectionFormer) in self.sectionFormers.enumerated() {
             for (row, rowFormer) in sectionFormer.rowFormers.enumerated() {
@@ -621,7 +621,7 @@ public final class Former: NSObject {
     
     /// Remove All SectionFormers with animated updates.
     @discardableResult
-    public func removeAllUpdate(rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func removeAllUpdate(rowAnimation: UITableView.RowAnimation = .none) -> Self {
         let indexSet = IndexSet(integersIn: 0..<sectionFormers.count)
         sectionFormers = []
         guard indexSet.count > 0 else { return self }
@@ -653,13 +653,13 @@ public final class Former: NSObject {
     
     /// Remove SectionFormers from instances of SectionFormer with animated updates.
     @discardableResult
-    public func removeUpdate(sectionFormer: SectionFormer..., rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func removeUpdate(sectionFormer: SectionFormer..., rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return removeUpdate(sectionFormers: sectionFormer, rowAnimation: rowAnimation)
     }
     
     /// Remove SectionFormers from instances of SectionFormer with animated updates.
     @discardableResult
-    public func removeUpdate(sectionFormers: [SectionFormer], rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func removeUpdate(sectionFormers: [SectionFormer], rowAnimation: UITableView.RowAnimation = .none) -> Self {
         guard !sectionFormers.isEmpty else { return self }
         let indexSet = removeSectionFormers(sectionFormers)
         guard indexSet.count > 0 else { return self }
@@ -684,13 +684,13 @@ public final class Former: NSObject {
     
     /// Remove RowFormers with animated updates.
     @discardableResult
-    public func removeUpdate(rowFormer: RowFormer..., rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func removeUpdate(rowFormer: RowFormer..., rowAnimation: UITableView.RowAnimation = .none) -> Self {
         return removeUpdate(rowFormers: rowFormer, rowAnimation: rowAnimation)
     }
     
     /// Remove RowFormers with animated updates.
     @discardableResult
-    public func removeUpdate(rowFormers: [RowFormer], rowAnimation: UITableViewRowAnimation = .none) -> Self {
+    public func removeUpdate(rowFormers: [RowFormer], rowAnimation: UITableView.RowAnimation = .none) -> Self {
         removeCurrentInlineRowUpdate()
         guard !rowFormers.isEmpty else { return self }
         tableView?.beginUpdates()
@@ -725,8 +725,8 @@ public final class Former: NSObject {
     private func setupTableView() {
         tableView?.delegate = self
         tableView?.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(Former.keyboardWillAppear(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(Former.keyboardWillDisappear(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Former.keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Former.keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     fileprivate func removeCurrentInlineRow() -> IndexPath? {
@@ -810,12 +810,12 @@ public final class Former: NSObject {
         return nil
     }
     
-    private dynamic func keyboardWillAppear(notification: NSNotification) {
+    @objc private dynamic func keyboardWillAppear(notification: NSNotification) {
         guard let keyboardInfo = notification.userInfo else { return }
         
         if case let (tableView?, cell?) = (tableView, findCellWithSubView(findFirstResponder(tableView))) {
             
-            let frame = (keyboardInfo[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+            let frame = (keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
             let keyboardFrame = tableView.window!.convert(frame!, to: tableView.superview!)
             let bottomInset = tableView.frame.minY + tableView.frame.height - keyboardFrame.minY
             guard bottomInset > 0 else { return }
@@ -823,13 +823,13 @@ public final class Former: NSObject {
             if oldBottomContentInset == nil {
                 oldBottomContentInset = tableView.contentInset.bottom
             }
-            let duration = (keyboardInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue!
-            let curve = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).integerValue!
+            let duration = (keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue!
+            let curve = (keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).integerValue!
             guard let indexPath = tableView.indexPath(for: cell) else { return }
             
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDuration(duration)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
+            UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curve)!)
             tableView.contentInset.bottom = bottomInset
             tableView.scrollIndicatorInsets.bottom = bottomInset
             tableView.scrollToRow(at: indexPath, at: .none, animated: false)
@@ -837,16 +837,16 @@ public final class Former: NSObject {
         }
     }
     
-    private dynamic func keyboardWillDisappear(notification: NSNotification) {
+    @objc private dynamic func keyboardWillDisappear(notification: NSNotification) {
         guard let keyboardInfo = notification.userInfo else { return }
         
         if case let (tableView?, inset?) = (tableView, oldBottomContentInset) {
-            let duration = (keyboardInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue!
-            let curve = (keyboardInfo[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).integerValue!
+            let duration = (keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue!
+            let curve = (keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).integerValue!
 
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDuration(duration)
-            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
+            UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curve)!)
             tableView.contentInset.bottom = inset
             tableView.scrollIndicatorInsets.bottom = inset
             UIView.commitAnimations()
